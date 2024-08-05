@@ -1,0 +1,19 @@
+{
+  "name": "chai-backend",
+  "version": "1.0.0",
+  "description": "A Backend Development",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "echo nodemon src/index.js"
+  },
+  "keywords": [
+    "JavaScript",
+    "Backend"
+  ],
+  "author": "Alok Kumar",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
