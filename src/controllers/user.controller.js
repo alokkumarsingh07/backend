@@ -284,8 +284,6 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Avatar file is missing");
   }
 
-  //TODO: delete old image - assignment
-
   const avatar = await uploadOnCloudinary(avatarLocalPath);
 
   if (!avatar.url) {
@@ -301,6 +299,19 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     },
     { new: true }
   ).select("-password");
+
+  //TODO: delete old image - assignment
+
+  const oldUser = await User.findById(req.user?._id).select("avatar");
+
+  if (!oldUser) {
+    throw new ApiError(404, "User not found");
+  }
+
+  if (oldUser.avatar) {
+    const publicId = oldUser.avatar.split("/").pop().split(".")[0];
+    await uploadOnCloudinary.v2.uploader.destroy(publicId);
+  }
 
   return res
     .status(200)
